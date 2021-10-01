@@ -19,8 +19,20 @@ function calculateBMI() {
     bmi = weight / Math.pow((heightIN / 100) + heightFT, 2);
   }
 
-  // Call function to answer on page
-  displayAnswer (bmi);
+  // Call function to answer on page and check for healthy bmi
+  if bmi < 18.5 {
+  // Display if underweight
+     displayAnswer (bmi + " Underweight");
+  } else if 18.5 < bmi > 24.9 {
+  // Display if healthy
+     displayAnswer (bmi + " Healthy");
+  } else if 25.0 < bmi > 29.9 {
+  // Display if overweight
+     displayAnswer (bmi + " Overweight");
+  } else {
+  // Default display obese
+     displayAnswer (bmi + " Obese");
+  }
 }
 
 // Convert feet to inches
