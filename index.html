@@ -7,13 +7,23 @@
   </head>
   <body>
     <h1>Fitness Calculator</h1>
-    <label for="weight">Weight:</label>
-    <input type="number" name="weight" id="weight">
-    <label for="height">Feet:</label>
-    <input type="number" name="heightFT" id="heightFT">
-    <label for="height">Inches:</label>
-    <input type="number" name="heightIN" id="heightIN">
-    <input onclick="calculateBMI()" type="submit" name="submit" value="Submit" id="btnSubmit">
+    <div>
+      <input onclick="standard()" type="radio" id="standard" name="unit" value="standard" checked>
+      <label for="standard">Pounds & Feet/Inches</label>
+    </div>
+    <div>
+      <input onclick="metric()" type="radio" id="metric" name="unit" value="metric">
+      <label for="metric">Kilograms & Meters/Centimeters</label>
+    </div>
+    <div>
+      <label for="weight" id ="lblWeight">Weight(lbs):</label>
+      <input type="number" name="weight" id="weight" value="150">
+      <label for="height" id="lblHeight">Feet:</label>
+      <input type="number" name="heightFT" id="heightFT" value="5">
+      <label for="height" id ="lblHeight2">Inches:</label>
+      <input type="number" name="heightIN" id="heightIN" value="6">
+      <input onclick="calculateBMI()" type="submit" name="submit" value="Submit" id="btnSubmit">
+    </div>
     <div id="answer"></div>
 
   </body>

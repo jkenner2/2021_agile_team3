@@ -1,14 +1,23 @@
 // Only called once submit button is clicked
 function calculateBMI() {
-  // Get weight and height
+  // Get reference weight and height inputs
   const weight = parseFloat(document.getElementById('weight').value);
   const heightFT = parseFloat(document.getElementById('heightFT').value);
   const heightIN = parseFloat(document.getElementById('heightIN').value);
 
-  // Calculate bmi
-  var bmi = (weight / (Math.pow((convertFeetToInches(heightFT) + heightIN), 2))) * 703;
+  // Get reference to units
+  const standard = document.getElementById('standard');
 
-  console.log(bmi.toFixed(2));
+  var bmi;
+
+  // Determine units to use
+  if (standard.checked) {
+    // Use standard units
+    bmi = (weight / (Math.pow((convertFeetToInches(heightFT) + heightIN), 2))) * 703;
+  } else {
+    // Use metric units
+    bmi = weight / Math.pow((heightIN / 100) + heightFT, 2);
+  }
 
   // Call function to answer on page
   displayAnswer (bmi);
@@ -39,4 +48,28 @@ function displayAnswer (textToDisplay) {
 
   // attach h3 with pybl to div
   answerDiv.appendChild(newH3);
+}
+
+function standard () {
+  // Store labels
+  const lblWeight = document.getElementById('lblWeight');
+  const lblHeight = document.getElementById('lblHeight');
+  const lblHeight2 = document.getElementById('lblHeight2');
+
+  // Convert units to metric
+  lblWeight.innerHTML = "Weight(lbs):";
+  lblHeight.innerHTML = "Feet:";
+  lblHeight2.innerHTML = "Inches:";
+}
+
+function metric () {
+  // Store labels
+  const lblWeight = document.getElementById('lblWeight');
+  const lblHeight = document.getElementById('lblHeight');
+  const lblHeight2 = document.getElementById('lblHeight2');
+
+  // Convert units to metric
+  lblWeight.innerHTML = "Weight(kg):";
+  lblHeight.innerHTML = "Meters:";
+  lblHeight2.innerHTML = "Centimeters:";
 }
