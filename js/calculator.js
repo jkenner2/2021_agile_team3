@@ -53,7 +53,7 @@ function displayAnswer (textToDisplay) {
   const newH3 = document.createElement('h3');
 
   // form string to show pybl
-  var answer = document.createTextNode("BMI: " + String(textToDisplay.toFixed(2)));
+  var answer = document.createTextNode("BMI: " + String(textToDisplay));
 
   // attach to h3
   newH3.appendChild(answer);
