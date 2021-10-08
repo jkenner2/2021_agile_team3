@@ -209,10 +209,10 @@ function healthLevel(bmi) {
 // Calculate activity level
 function activityLevel(bmr) {
   // get reference to selections
-  var sedentary = document.getElementbyId('sedentary');
-  var light = document.getElementbyId('lightAct');
-  var moderate = document.getElementbyId('moderateAct');
-  var very = document.getElementbyId('veryAct');
+  var sedentary = document.getElementById('sedentary');
+  var light = document.getElementById('lightAct');
+  var moderate = document.getElementById('moderateAct');
+  var very = document.getElementById('veryAct');
 
   // Check and Calculate
   if (sedentary.checked) {
