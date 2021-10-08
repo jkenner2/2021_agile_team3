@@ -72,11 +72,58 @@ function calculateBMI() {
     bmi = (weight / (Math.pow((convertFeetToInches(largerHeight) + smallerHeight), 2))) * 703;
   } else {
     // Its not checked, use metric units
-    bmi = weight / Math.pow(convertCentimetersToMeeters(smallerHeight) + largerHeight, 2);
+    bmi = weight / Math.pow(convertCentimetersToMeters(smallerHeight) + largerHeight, 2);
   }
 
   // Format to only include 2 decimal places and return bmi
   return bmi.toFixed(2);
+}
+
+// Calculate the users's Basal Metabolic Rate (BMR)
+function calculateBMR() {
+  // Caputre input as array
+  var input = getRefenceToTextFields();
+
+  // Format and assign values
+  var weight = parseFloat(input[0].value);        // Weight
+  var largerHeight = parseFloat(input[1].value);  // m or ft Height
+  var smallerHeight = parseFloat(input[2].value); // in or cm Height
+  var age = parseFloat(input[3].value);           // Age
+
+  // Get reference to units
+  var standard = document.getElementById('standard');
+
+  // Get reference to male radio button
+  var male = document.getElementById('male');
+
+  // Member variable to hold final calculation
+  var bmr = null;
+
+  // Determine which units to use by seeing if standard radio button is checked
+  if (standard.checked) {
+    // Its checked, use standard units
+    // Determine which equation to use by seeing if the male radio button is checked
+    if (male.checked) {
+      // Its checked, use male calculation
+      bmr = 66 + (6.23 * weight) + (12.7 * (convertFeetToInches(largerHeight) + smallerHeight)) - (6.8 * age);
+
+    } else {
+      // Its not checked, use female calculation
+      bmr = 655 + (4.35 * weight) + (4.7 * (convertFeetToInches(largerHeight) + smallerHeight)) - (4.7 * age);
+    }
+  } else {
+    // Its not checked, use metric units
+    // Determine which equation to use by seeing if the male radio button is checked
+    if (male.checked) {
+      // Its checked, use male calculation
+      bmr = 66 + (13.7 * weight) + (5 * (convertMetersToCentimeters(largerHeight) + smallerHeight)) - (6.8 * age);
+    } else {
+      // Its not checked, use female
+      bmr = 655 + (9.6 * weight) + (1.8 * (convertMetersToCentimeters(largerHeight) + smallerHeight)) - (4.7 * age);
+    }
+  }
+  // Format to only include 2 decimal places and return bmi
+  return bmr.toFixed(2);
 }
 
 // Grab a reference to each input text box
@@ -88,9 +135,11 @@ function getRefenceToTextFields() {
   var largerHeight = document.getElementById('largerHeight');
   // 2: Smaller height
   var smallerHeight = document.getElementById('smallerHeight');
+  // 3: Age
+  var age = document.getElementById('age');
 
   // Create array to return
-  var weightHeight = [weight, largerHeight, smallerHeight]
+  var weightHeight = [weight, largerHeight, smallerHeight, age];
 
   // Return array of inputs
   return weightHeight;
@@ -98,17 +147,21 @@ function getRefenceToTextFields() {
 
 // Check each text input box for numeric input
 function validateData() {
+  // Get reference to texboxes to validate
   var input = getRefenceToTextFields();
-  // Create member variable for input validation
-  var notValid = false;
 
-  // Create array for easy step through
-  var input = [weight, largerHeight, smallerHeight]
+  // Inital variable for if input is valid (starts valid)
+  var notValid = false;
 
   input.forEach(function (valueObject) {
     if (isNaN(parseFloat(valueObject.value))) {
+      // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
+      // Clear field
+      valueObject.value = "";
+      // Move cursor to field
       valueObject.focus();
+      // Change to return true (found invald input)
       notValid = true;
     }
   });
@@ -124,9 +177,15 @@ function convertFeetToInches (mesurementInFeet) {
 }
 
 // Convert centimeters to meeters
-function convertCentimetersToMeeters (mesurementInCentimeetrs) {
+function convertCentimetersToMeters (mesurementInCentimeters) {
   // Devide by 100
-  return mesurementInCentimeetrs / 100;
+  return mesurementInCentimeters / 100;
+}
+
+// Convert meters to centimeters
+function convertMetersToCentimeters (mesurementInMeters) {
+  // Devide by 100
+  return mesurementInMeters * 100;
 }
 
 // Determine how healhty bmi is
@@ -174,14 +233,17 @@ function onSubmitClick() {
   // Determine input is usable
   if (validateData()) {
     return;
-  };
+  }
 
   // Call the function calculateBMI to calculate bmi value
   var bmi = calculateBMI();
+
+  // Call the fucntion calculateBMR to calulate bmr value
+  var bmr = calculateBMR();
 
   // Determine if bmi is healthy
   var healthy = healthLevel(bmi);
 
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ".");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + "."  );
 }
