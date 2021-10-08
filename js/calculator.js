@@ -71,7 +71,7 @@ function getRefenceToTextFields() {
 }
 
 // Check each text input box for numeric input
-function validData() {
+function validateData() {
   var input = getRefenceToTextFields();
   // Create member variable for input validation
   var notValid = false;
@@ -146,7 +146,7 @@ function displayAnswer (textToDisplay) {
 // Only called once submit button is clicked
 function onSubmitClick() {
   // Determine input is usable
-  if (validData()) {
+  if (validateData()) {
     return;
   };
 
