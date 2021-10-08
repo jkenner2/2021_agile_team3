@@ -270,6 +270,6 @@ function onSubmitClick() {
   var active = activityLevel(bmr);
 
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + "." + <br> +
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + "."
     + "Your Daily calorie burn is " + active + ".");
 }
