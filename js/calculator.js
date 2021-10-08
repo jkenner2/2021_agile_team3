@@ -206,6 +206,28 @@ function healthLevel(bmi) {
   }
 }
 
+// Calculate activity level
+function activityLevel(bmr) {
+  // get reference to selections
+  var sedentary = document.getElementbyId('sedentary');
+  var light = document.getElementbyId('lightAct');
+  var moderate = document.getElementbyId('moderateAct');
+  var very = document.getElementbyId('veryAct');
+
+  // Check and Calculate
+  if (sedentary.checked) {
+    return (bmr * 1.2);
+  } else if (light.checked) {
+    return (bmr * 1.375);
+  } else if (moderate.checked) {
+    return (bmr * 1.55);
+  } else if (very.checked) {
+    return (bmr * 1.725);
+  } else {
+    return (bmr * 1.9);
+  }
+}
+
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
   var answerDiv = document.getElementById("answer");
@@ -244,6 +266,10 @@ function onSubmitClick() {
   // Determine if bmi is healthy
   var healthy = healthLevel(bmi);
 
+  // Determine active bmr
+  var active = activityLevel(bmr);
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + "."  );
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ".<br>"
+    + "Your Daily calorie burn is " + active + ".");
 }
