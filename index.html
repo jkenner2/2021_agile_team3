@@ -22,9 +22,21 @@
       <input type="number" name="largerHeight" id="largerHeight" value="5">
       <label for="height" id ="lblSmallerHeight">Inches:</label>
       <input type="number" name="smallerHeight" id="smallerHeight" value="6">
+      <label for="age" id ="lblAge">Age:</label>
+      <input type="number" name="age" id="age" value="21">
+      <div>
+        <label for="gender" id ="lblGender">Gender:</label>
+      </div>
+      <div>
+        <input type="radio" id="male" name="gender" value="male" checked>
+        <label for="male">Male</label>
+      </div>
+      <div>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+      </div>
       <input onclick="onSubmitClick()" type="submit" name="submit" value="Submit" id="btnSubmit">
     </div>
     <div id="answer"></div>
-
   </body>
 </html>
