@@ -1,87 +1,161 @@
-// Only called once submit button is clicked
+// Convert the calculator face to use stand units of mesurement
+function standard () {
+  // Store labels
+  var lblWeight = document.getElementById('lblWeight');
+  var lblLargerHeight = document.getElementById('lblLargerHeight');
+  var lblSmallerHeight = document.getElementById('lblSmallerHeight');
+
+  // Convert units to metric
+  lblWeight.innerHTML = "Weight(lbs):";
+  lblLargerHeight.innerHTML = "Feet:";
+  lblSmallerHeight.innerHTML = "Inches:";
+}
+
+// Convert the calculator face to use metric units of mesurement
+function metric () {
+  // Store element labels
+  var lblWeight = document.getElementById('lblWeight');
+  var lblLargerHeight = document.getElementById('lblLargerHeight');
+  var lblSmallerHeight = document.getElementById('lblSmallerHeight');
+
+  // Convert element units to metric
+  lblWeight.innerHTML = "Weight(kg):";
+  lblLargerHeight.innerHTML = "Meters:";
+  lblSmallerHeight.innerHTML = "Centimeters:";
+}
+
+// Calculate the users's bmi
 function calculateBMI() {
-  // Get reference weight and height inputs
-  const weight = parseFloat(document.getElementById('weight').value);
-  const heightFT = parseFloat(document.getElementById('heightFT').value);
-  const heightIN = parseFloat(document.getElementById('heightIN').value);
+  // Caputre input as array
+  var input = getRefenceToTextFields();
+
+  // Format and assign values
+  var weight = parseFloat(input[0].value);        // Weight
+  var largerHeight = parseFloat(input[1].value);  // m or ft Height
+  var smallerHeight = parseFloat(input[2].value); // in or cm Height
 
   // Get reference to units
-  const standard = document.getElementById('standard');
+  var standard = document.getElementById('standard');
 
-  var bmi;
+  // Member variable to hold final calculation
+  var bmi = null;
 
-  // Determine units to use
+  // Determine which units to use by seeing if standard radio button is checked
   if (standard.checked) {
-    // Use standard units
-    bmi = (weight / (Math.pow((convertFeetToInches(heightFT) + heightIN), 2))) * 703;
+    // Its checked, use standard units
+    bmi = (weight / (Math.pow((convertFeetToInches(largerHeight) + smallerHeight), 2))) * 703;
   } else {
-    // Use metric units
-    bmi = weight / Math.pow((heightIN / 100) + heightFT, 2);
+    // Its not checked, use metric units
+    bmi = weight / Math.pow(convertCentimetersToMeeters(smallerHeight) + largerHeight, 2);
   }
 
-  // Call function to answer on page and check for healthy bmi
-  if (bmi < 18.5) {
-  // Display if underweight
-     displayAnswer (bmi + " Underweight");
-  } else if (18.5 < bmi && bmi < 24.9) {
-  // Display if healthy
-     displayAnswer (bmi + " Healthy");
-  } else if (25.0 < bmi && bmi < 29.9) {
-  // Display if overweight
-     displayAnswer (bmi + " Overweight");
-  } else {
-  // Default display obese
-     displayAnswer (bmi + " Obese");
-  }
+  // Format to only include 2 decimal places and return bmi
+  return bmi.toFixed(2);
+}
+
+// Grab a reference to each input text box
+function getRefenceToTextFields() {
+  // Get reference weight and height inputs
+  // 0: Weight
+  var weight = document.getElementById('weight');
+  // 1: larger height
+  var largerHeight = document.getElementById('largerHeight');
+  // 2: Smaller height
+  var smallerHeight = document.getElementById('smallerHeight');
+
+  // Create array to return
+  var weightHeight = [weight, largerHeight, smallerHeight]
+
+  // Return array of inputs
+  return weightHeight;
+}
+
+// Check each text input box for numeric input
+function validData() {
+  var input = getRefenceToTextFields();
+  // Create member variable for input validation
+  var notValid = false;
+
+  // Create array for easy step through
+  var input = [weight, largerHeight, smallerHeight]
+
+  input.forEach(function (valueObject) {
+    if (isNaN(parseFloat(valueObject.value))) {
+      displayAnswer ("Please ensure your input is valid!");
+      valueObject.focus();
+      notValid = true;
+    }
+  });
+
+  // Return True (not valid) or False (valid)
+  return notValid;
 }
 
 // Convert feet to inches
 function convertFeetToInches (mesurementInFeet) {
+  // Mulitply by 12
   return mesurementInFeet * 12;
+}
+
+// Convert centimeters to meeters
+function convertCentimetersToMeeters (mesurementInCentimeetrs) {
+  // Devide by 100
+  return mesurementInCentimeetrs / 100;
+}
+
+// Determine how healhty bmi is
+function healthLevel(bmi) {
+  // Call function to answer on page and check for healthy bmi
+  if (bmi < 18.5) {
+  // Display if underweight
+     return "underweight";
+  } else if (18.5 < bmi && bmi < 24.9) {
+  // Display if healthy
+     return "healthy";
+  } else if (25.0 < bmi && bmi < 29.9) {
+  // Display if overweight
+     return "overweight";
+  } else {
+  // Default display obese
+    return " obese";
+  }
 }
 
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
-  const answerDiv = document.getElementById("answer");
+  var answerDiv = document.getElementById("answer");
 
   // Delete old answer if exits
   if (answerDiv.hasChildNodes()){
     answerDiv.removeChild(answerDiv.firstChild);
   }
 
-  // Create new h3 to show pybl
-  const newH3 = document.createElement('h3');
+  // Create new h3 for text
+  var newH3 = document.createElement('h3');
 
-  // form string to show pybl
-  var answer = document.createTextNode("BMI: " + String(textToDisplay));
+  // Change h3 text
+  var answer = document.createTextNode(textToDisplay);
 
-  // attach to h3
+  // Attach text to h3
   newH3.appendChild(answer);
 
-  // attach h3 with pybl to div
+  // Attach h3 with text to div
   answerDiv.appendChild(newH3);
 }
 
-function standard () {
-  // Store labels
-  const lblWeight = document.getElementById('lblWeight');
-  const lblHeight = document.getElementById('lblHeight');
-  const lblHeight2 = document.getElementById('lblHeight2');
+// Only called once submit button is clicked
+function onSubmitClick() {
+  // Determine input is usable
+  if (validData()) {
+    return;
+  };
 
-  // Convert units to metric
-  lblWeight.innerHTML = "Weight(lbs):";
-  lblHeight.innerHTML = "Feet:";
-  lblHeight2.innerHTML = "Inches:";
-}
+  // Call the function calculateBMI to calculate bmi value
+  var bmi = calculateBMI();
 
-function metric () {
-  // Store labels
-  const lblWeight = document.getElementById('lblWeight');
-  const lblHeight = document.getElementById('lblHeight');
-  const lblHeight2 = document.getElementById('lblHeight2');
+  // Determine if bmi is healthy
+  var healthy = healthLevel(bmi);
 
-  // Convert units to metric
-  lblWeight.innerHTML = "Weight(kg):";
-  lblHeight.innerHTML = "Meters:";
-  lblHeight2.innerHTML = "Centimeters:";
+  // Display the calculated information back to the user
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ".");
 }
