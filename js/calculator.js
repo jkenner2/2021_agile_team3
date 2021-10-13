@@ -154,7 +154,7 @@ function validateData() {
   var notValid = false;
 
   input.forEach(function (valueObject) {
-    if (isNaN(parseFloat(valueObject.value))) {
+    if (isNaN(parseFloat(valueObject.value))) && (valueObject.value < 0) {
       // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
       // Clear field
