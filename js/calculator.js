@@ -5,6 +5,12 @@ function standard () {
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
 
+
+  // Prevent user from spamming unit conversion radio button
+  if (lblWeight.innerHTML == "Weight(lbs):" && lblLargerHeight.innerHTML == "Feet:" && lblSmallerHeight.innerHTML == "Inches:") {
+    return;
+  }
+
   // Convert labels to metric
   lblWeight.innerHTML = "Weight(lbs):";
   lblLargerHeight.innerHTML = "Feet:";
@@ -35,6 +41,11 @@ function metric () {
   var lblWeight = document.getElementById('lblWeight');
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
+
+  // Prevent user from spamming unit conversion radio button
+ if (lblWeight.innerHTML == "Weight(kg):" && lblLargerHeight.innerHTML == "Meters:" && lblSmallerHeight.innerHTML == "Centimeters:") {
+   return;
+ }
 
   // Convert labels to metric
   lblWeight.innerHTML = "Weight(kg):";
