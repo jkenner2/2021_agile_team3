@@ -10,18 +10,23 @@ function standard () {
   lblLargerHeight.innerHTML = "Feet:";
   lblSmallerHeight.innerHTML = "Inches:";
 
-  // get values
+  // Get refence to each text field (Array returned)
   var input = getRefenceToTextFields();
 
-  // Format
+  // Convert each input to float type
   var weight = parseFloat(input[0].value);
   var largerHeight = parseFloat(input[1].value);
   var smallerHeight = parseFloat(input[2].value);
 
-  // calculate
-  input[0].value = (weight * 2.2);
-  input[1].value = (largerHeight * 3.2);
-  input[2].value = (smallerHeight * 0.3);
+  // Convert values to standard from metric
+  input[0].value = (weight * 2.2046226218).toFixed(0);
+
+  // Use function to convert to standard
+  var metricArray = convertHeightToStandardFromMetric(largerHeight, smallerHeight);
+
+  // Change to calcuclated height values
+  input[1].value = metricArray[0];
+  input[2].value = metricArray[1];
 }
 
 // Convert the calculator face to use metric units of mesurement
@@ -44,10 +49,53 @@ function metric () {
   var largerHeight = parseFloat(input[1].value);
   var smallerHeight = parseFloat(input[2].value);
 
-  // Calulate
-  input[0].value = (weight * 0.4);
-  input[1].value = (largerHeight * 0.3);
-  input[2].value = (smallerHeight * 2.5);
+  // Convert values to metric from standard
+  input[0].value = (weight * 0.45359237).toFixed(0);
+  // Use function to convert to metric
+  var metricArray = convertHeightToMetricFromStandard(largerHeight, smallerHeight);
+
+  // Change to calcuclated height values
+  input[1].value = metricArray[0];
+  input[2].value = metricArray[1];
+}
+
+function convertHeightToMetricFromStandard(feet, inches) {
+  // Calculate height in inches
+  var composite = parseFloat(convertFeetToInches(feet).toFixed(0)) + parseFloat(inches);
+
+  // Convernt inches to cm
+  composite = (composite * 2.54).toFixed(0);
+
+  // Extract height in meters
+  var meters = Math.floor(convertCentimetersToMeters(composite));
+
+  // Extract height in cm
+  var cm = composite - (convertMetersToCentimeters(meters));
+
+  // Put into array for output
+  var output = [meters, cm];
+
+  // Retrun output
+  return output;
+}
+
+function convertHeightToStandardFromMetric(meters, centimeters) {
+  // Calculate height in inches
+  var composite = parseFloat(convertMetersToCentimeters(meters).toFixed(0)) + parseFloat(centimeters);
+
+  // Convernt cm to inches
+  composite = (composite * 0.3937007874).toFixed(0);
+  // Extract height in feet
+  var feet = Math.floor(convertInchestoFeet(composite));
+
+  // Extract height in inches
+  var inches = composite - (convertFeetToInches(feet)) ;
+
+  // Put into array for output
+  var output = [feet, inches];
+
+  // Retrun output
+  return output;
 }
 
 // Calculate the users's bmi
@@ -123,7 +171,7 @@ function calculateBMR() {
     }
   }
   // Format to only include 2 decimal places and return bmi
-  return bmr.toFixed(2);
+  return bmr.toFixed(0);
 }
 
 // Grab a reference to each input text box
@@ -154,7 +202,8 @@ function validateData() {
   var notValid = false;
 
   input.forEach(function (valueObject) {
-    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0)) {
+    // Ensure input is numberic, greater than 0, and not too large
+    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0) || (valueObject.value > 600)) {
       // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
       // Clear field
@@ -188,6 +237,10 @@ function convertMetersToCentimeters (mesurementInMeters) {
   return mesurementInMeters * 100;
 }
 
+function convertInchestoFeet (mesurementInInches) {
+  // Devide by 12
+  return mesurementInInches / 12;
+}
 // Determine how healhty bmi is
 function healthLevel(bmi) {
   // Call function to answer on page and check for healthy bmi
@@ -214,18 +267,23 @@ function activityLevel(bmr) {
   var moderate = document.getElementById('moderateAct');
   var very = document.getElementById('veryAct');
 
+  // create local variable for output
+  var output;
+
   // Check and Calculate
   if (sedentary.checked) {
-    return (bmr * 1.2);
+    output = (bmr * 1.2);
   } else if (light.checked) {
-    return (bmr * 1.375);
+    output =  (bmr * 1.375);
   } else if (moderate.checked) {
-    return (bmr * 1.55);
+    output =  (bmr * 1.55);
   } else if (very.checked) {
-    return (bmr * 1.725);
+    output =  (bmr * 1.725);
   } else {
-    return (bmr * 1.9);
+    output =  (bmr * 1.9);
   }
+
+  return output.toFixed(0);
 }
 
 // Calculate max hr
@@ -244,7 +302,7 @@ function maxHeartRate() {
 function targetHeartRate(maxHR) {
   // Calculate upper and lower target heart rate
   // and store in values in array
-  var targetArray = [(maxHR * .5), (maxHR * .85)];
+  var targetArray = [(maxHR * 0.5).toFixed(0), (maxHR * 0.85).toFixed(0)];
 
   // Return array
   return targetArray;
