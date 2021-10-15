@@ -240,7 +240,7 @@ function maxHeartRate() {
   return 220 - age;
 }
 
-// Calculate target heart rate using max heart rate
+// Calculate target heart rate based off max heart rate
 function targetHeartRate(maxHR) {
   // Calculate upper and lower target heart rate
   // and store in values in array
