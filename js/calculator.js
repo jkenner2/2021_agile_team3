@@ -5,10 +5,23 @@ function standard () {
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
 
-  // Convert units to metric
+  // Convert labels to metric
   lblWeight.innerHTML = "Weight(lbs):";
   lblLargerHeight.innerHTML = "Feet:";
   lblSmallerHeight.innerHTML = "Inches:";
+
+  // get values
+  var input = getRefenceToTextFields();
+
+  // Format
+  var weight = parseFloat(input[0].value);
+  var largerHeight = parseFloat(input[1].value);
+  var smallerHeight = parseFloat(input[2].value);
+
+  // calculate
+  input[0].value = (weight * 2.2);
+  input[1].value = (largerHeight * 3.2);
+  input[2].value = (smallerHeight * 0.3);
 }
 
 // Convert the calculator face to use metric units of mesurement
@@ -18,10 +31,23 @@ function metric () {
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
 
-  // Convert element units to metric
+  // Convert labels to metric
   lblWeight.innerHTML = "Weight(kg):";
   lblLargerHeight.innerHTML = "Meters:";
   lblSmallerHeight.innerHTML = "Centimeters:";
+
+  // Get values
+  input = getRefenceToTextFields();
+
+  // Format
+  var weight = parseFloat(input[0].value);
+  var largerHeight = parseFloat(input[1].value);
+  var smallerHeight = parseFloat(input[2].value);
+
+  // Calulate
+  input[0].value = (weight * 0.4);
+  input[1].value = (largerHeight * 0.3);
+  input[2].value = (smallerHeight * 2.5);
 }
 
 // Calculate the users's bmi
@@ -113,10 +139,10 @@ function getRefenceToTextFields() {
   var age = document.getElementById('age');
 
   // Create array to return
-  var weightHeight = [weight, largerHeight, smallerHeight, age];
+  var weightHeightAge = [weight, largerHeight, smallerHeight, age];
 
   // Return array of inputs
-  return weightHeight;
+  return weightHeightAge;
 }
 
 // Check each text input box for numeric input
@@ -128,7 +154,7 @@ function validateData() {
   var notValid = false;
 
   input.forEach(function (valueObject) {
-    if (isNaN(parseFloat(valueObject.value))) {
+    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0)) {
       // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
       // Clear field
@@ -180,6 +206,40 @@ function healthLevel(bmi) {
   }
 }
 
+// Calculate activity level
+function activityLevel(bmr) {
+  // get reference to selections
+  var sedentary = document.getElementById('sedentary');
+  var light = document.getElementById('lightAct');
+  var moderate = document.getElementById('moderateAct');
+  var very = document.getElementById('veryAct');
+
+  // Check and Calculate
+  if (sedentary.checked) {
+    return (bmr * 1.2);
+  } else if (light.checked) {
+    return (bmr * 1.375);
+  } else if (moderate.checked) {
+    return (bmr * 1.55);
+  } else if (very.checked) {
+    return (bmr * 1.725);
+  } else {
+    return (bmr * 1.9);
+  }
+}
+
+// Calculate max hr
+function maxHeartRate() {
+  // Get reference to user inputs
+  var inputArray = getRefenceToTextFields();
+
+  // Extract age from array
+  var age = parseFloat(inputArray[3].value);
+
+  // Calulate max heart rate
+  return 220 - age;
+}
+
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
   var answerDiv = document.getElementById("answer");
@@ -218,6 +278,12 @@ function onSubmitClick() {
   // Determine if bmi is healthy
   var healthy = healthLevel(bmi);
 
+  // Determine active bmr
+  var active = activityLevel(bmr);
+
+  // Calculate max heart rate
+  var maxHR = maxHeartRate();
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + "."  );
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ".");
 }
