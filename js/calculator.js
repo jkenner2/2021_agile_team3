@@ -208,8 +208,8 @@ function getRefenceToTextFields() {
 function validateData() {
   // Get reference to texboxes to validate
   var input = getRefenceToTextFields();
-  var imperial = getElementById('standard');
-  var metric = getElementById('metric');
+  var imperial = document.getElementById('standard');
+  var metric = document.getElementById('metric');
 
   // Inital variable for if input is valid (starts valid)
   var notValid = false;
