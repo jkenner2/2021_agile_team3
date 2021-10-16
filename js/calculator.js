@@ -377,7 +377,7 @@ function onSubmitClick() {
   var targetHR = targetHeartRate(maxHR);
 
   // Calculate gaining weight losing weight and staying at the same weight
-  var lose = active -= 500;
+  var lose = +active - 500;
   var gain = +active + 500;
 
   // Display the calculated information back to the user
