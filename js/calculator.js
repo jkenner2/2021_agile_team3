@@ -216,7 +216,7 @@ function validateData() {
 
   input.forEach(function (valueObject) {
     // Ensure input is numberic, greater than 0, and not too large
-    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0) || (valueObject.value > 600)) {
+    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0)) {
       // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
       // Clear field
@@ -225,11 +225,11 @@ function validateData() {
       valueObject.focus();
       // Change to return true (found invald input)
       notValid = true;
-    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12) {
+    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12)) {
       displayAnswer ("Your inputs are too high!");
       valueObject.focus();
       notValid = true;
-    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100) {
+    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100)) {
       displayAnswer ("Your inputs are too high!");
       valueobject.focus();
       notValid = true;
