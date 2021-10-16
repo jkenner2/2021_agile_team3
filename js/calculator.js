@@ -376,6 +376,10 @@ function onSubmitClick() {
   // Calculate targetHR zone (50 - 80%) returning array for low/high
   var targetHR = targetHeartRate(maxHR);
 
+  // Calculate gaining weight losing weight and staying at the same weight
+  var lose = active - 500;
+  var gain = active + 500;
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ".");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories.");
 }
