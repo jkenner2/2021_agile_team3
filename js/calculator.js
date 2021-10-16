@@ -149,6 +149,8 @@ function getRefenceToTextFields() {
 function validateData() {
   // Get reference to texboxes to validate
   var input = getRefenceToTextFields();
+  var imperial = getElementById('standard');
+  var metric = getElementById('metric');
 
   // Inital variable for if input is valid (starts valid)
   var notValid = false;
@@ -162,6 +164,14 @@ function validateData() {
       // Move cursor to field
       valueObject.focus();
       // Change to return true (found invald input)
+      notValid = true;
+    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12) {
+      displayAnswer ("Your inputs are too high!");
+      valueObject.focus();
+      notValid = true;
+    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100) {
+      displayAnswer ("Your inputs are too high!");
+      valueobject.focus();
       notValid = true;
     }
   });
