@@ -3,61 +3,69 @@
   <head>
     <meta charset="utf-8">
     <title>Fitness Calculator</title>
-    <script src="js/calculator.js" charset="utf-8"></script>
+    <script src="js/calculator.js"></script>
   </head>
   <body>
     <h1>Fitness Calculator</h1>
     <div>
-      <input onclick="standard()" type="radio" id="standard" name="unit" value="standard" checked>
+      <input onclick="onStandardClick()" type="radio" id="standard" name="unit" value="standard" checked>
       <label for="standard">Pounds & Feet/Inches</label>
     </div>
     <div>
-      <input onclick="metric()" type="radio" id="metric" name="unit" value="metric">
+      <input onclick="onMetricClick()" type="radio" id="metric" name="unit" value="metric">
       <label for="metric">Kilograms & Meters/Centimeters</label>
     </div>
     <div>
       <label for="weight" id ="lblWeight">Weight(lbs):</label>
       <input type="number" name="weight" id="weight" value="150">
-      <label for="height" id="lblLargerHeight">Feet:</label>
+    </div>
+    <div>
+      <label for="largerHeight" id="lblLargerHeight">Feet:</label>
       <input type="number" name="largerHeight" id="largerHeight" value="5">
-      <label for="height" id ="lblSmallerHeight">Inches:</label>
+    </div>
+    <div>
+      <label for="smallerHeight" id ="lblSmallerHeight">Inches:</label>
       <input type="number" name="smallerHeight" id="smallerHeight" value="6">
+    </div>
+    <div>
       <label for="age" id ="lblAge">Age:</label>
       <input type="number" name="age" id="age" value="21">
-      <div>
-        <label for="gender" id ="lblGender">Gender:</label>
-      </div>
-      <div>
-        <input type="radio" id="male" name="gender" value="male" checked>
-        <label for="male">Male</label>
-      </div>
-      <div>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">Female</label>
-      </div>
-      <div>
-        <label for="activity" id="lblActivity">Activity Level:</label>
-      </div>
-      <div>
-        <input type="radio" id="sedentary" name="activity" value="sedentary" checked>
-        <label for="sedentary">Sedentary (Little or no exercise)</label>
-      </div>
-      <div>
-        <input type="radio" id="lightAct" name="activity" value="lightAct">
-        <label for="lightAct">Lightly Active (Light exercise/sports 1-3 days/week)</label>
-      </div>
-      <div>
-        <input type="radio" id="moderateAct" name="activity" value="moderateAct">
-        <label for="moderateAct">Moderately Active (Moderate exercies/sports 3-5 days/week)</label>
-      </div>
-      <div>
-        <input type="radio" id="veryAct" name="activity" value="veryAct">
-        <label for="veryAct">Very Active (hard exercies/sports 6-7 days a week)</label>
-      </div>
-      <div>
-        <input type="radio" id="extraAct" name="activity" value="exraAct">
-        <label for="extraAct">Extra Active (very hard exercies/sports & physcial job or 2x training)</label>
-      </div>
+    </div>
+    <div>
+      <label id ="lblGender">Gender:</label>
+    </div>
+    <div>
+      <input type="radio" id="male_gender" name="gender" value="male" checked>
+      <label for="male_gender">Male</label>
+    </div>
+    <div>
+      <input type="radio" id="female_gender" name="gender" value="female">
+      <label for="female_gender">Female</label>
+    </div>
+    <div>
+      <label id="lblActivity">Activity Level:</label>
+    </div>
+    <div>
+      <input type="radio" id="sedentary" name="activity" value="sedentary" checked>
+      <label for="sedentary">Sedentary (Little or no exercise)</label>
+    </div>
+    <div>
+      <input type="radio" id="lightAct" name="activity" value="lightAct">
+      <label for="lightAct">Lightly Active (Light exercise/sports 1-3 days/week)</label>
+    </div>
+    <div>
+      <input type="radio" id="moderateAct" name="activity" value="moderateAct">
+      <label for="moderateAct">Moderately Active (Moderate exercies/sports 3-5 days/week)</label>
+    </div>
+    <div>
+      <input type="radio" id="veryAct" name="activity" value="veryAct">
+      <label for="veryAct">Very Active (hard exercies/sports 6-7 days a week)</label>
+    </div>
+    <div>
+      <input type="radio" id="extraAct" name="activity" value="exraAct">
+      <label for="extraAct">Extra Active (very hard exercies/sports & physcial job or 2x training)</label>
+    </div>
+    <div>
       <input onclick="onSubmitClick()" type="submit" name="submit" value="Submit" id="btnSubmit">
     </div>
     <div id="answer"></div>
