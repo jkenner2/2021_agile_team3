@@ -208,13 +208,15 @@ function getRefenceToTextFields() {
 function validateData() {
   // Get reference to texboxes to validate
   var input = getRefenceToTextFields();
+  var standard = document.getElementById('standard');
+  var metric = document.getElementById('metric');
 
   // Inital variable for if input is valid (starts valid)
   var notValid = false;
 
   input.forEach(function (valueObject) {
     // Ensure input is numberic, greater than 0, and not too large
-    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0) || (valueObject.value > 600)) {
+    if ((isNaN(parseFloat(valueObject.value))) || (valueObject.value < 0)) {
       // Warn user of their mistake
       displayAnswer ("Please ensure your input is valid!");
       // Clear field
@@ -222,6 +224,14 @@ function validateData() {
       // Move cursor to field
       valueObject.focus();
       // Change to return true (found invald input)
+      notValid = true;
+    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12)) {
+      displayAnswer ("Your inputs are too high!");
+      valueObject.focus();
+      notValid = true;
+    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100)) {
+      displayAnswer ("Your inputs are too high!");
+      valueObject.focus();
       notValid = true;
     }
   });
@@ -366,6 +376,10 @@ function onSubmitClick() {
   // Calculate targetHR zone (50 - 80%) returning array for low/high
   var targetHR = targetHeartRate(maxHR);
 
+  // Calculate gaining weight losing weight and staying at the same weight
+  var lose = +active - 500;
+  var gain = +active + 500;
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart rate between " + targetHR[0] + " and " + targetHR[1] + ".");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories.");
 }
