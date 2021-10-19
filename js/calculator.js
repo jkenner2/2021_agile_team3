@@ -231,7 +231,7 @@ function validateData() {
       notValid = true;
     } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100)) {
       displayAnswer ("Your inputs are too high!");
-      valueobject.focus();
+      valueObject.focus();
       notValid = true;
     }
   });
