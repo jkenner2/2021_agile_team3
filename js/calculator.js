@@ -319,6 +319,36 @@ function maxHeartRate() {
   return 220 - age;
 }
 
+// Calculate Daily water intake
+function waterIntake() {
+  // Get reference to user inputs
+  var inputArray = getRefenceToTextFields();
+  var sedentary = document.getElementById('sedentary');
+  var light = document.getElementById('lightAct');
+  var moderate = document.getElementById('moderateAct');
+  var very = document.getElementById('veryAct');
+
+  // Extract weight from array
+  var weight = parseFloat(inputArray[0].value);
+
+  // Create variable for water
+  var waterIntake;
+  // Calculate water intake
+  if (sedentary.checked) {
+    waterIntake = (+weight * 0.67);
+  } else if (light.checked) {
+    waterIntake = (+weight * 0.67) + 12;
+  } else if (moderate.checked) {
+    waterIntake = (+weight * 0.67) + 18;
+  } else if (very.checked) {
+    waterIntake = (+weight * 0.67) + 24;
+  } else {
+    waterIntake = (+weight * 0.67) + 30;
+  }
+
+  return weight.tofixed(0);
+}
+
 // Calculate target heart rate based off max heart rate
 function targetHeartRate(maxHR) {
   // Calculate upper and lower target heart rate
