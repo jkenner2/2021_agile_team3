@@ -362,7 +362,7 @@ function waterIntake() {
   var weight = parseFloat(inputArray[0].value);
 
   // Create variable for water
-  var waterIntake;
+  var waterIntake = 0.0;
   // Calculate water intake
   if (sedentary.checked) {
     waterIntake = (+weight * 0.67);
