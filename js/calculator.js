@@ -376,7 +376,7 @@ function waterIntake() {
     waterIntake = ((weight * 0.67) + 30.00);
   }
 
-  return weight.toFixed(0);
+  return waterIntake.toFixed(0);
 }
 
 // Calculate target heart rate based off max heart rate
