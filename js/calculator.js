@@ -365,15 +365,15 @@ function waterIntake() {
   var waterIntake = 0.0;
   // Calculate water intake
   if (sedentary.checked) {
-    waterIntake = (+weight * 0.67);
+    waterIntake = (weight * 0.67);
   } else if (light.checked) {
-    waterIntake = (+weight * 0.67) + 12.00;
+    waterIntake = (weight * 0.67) + 12.00;
   } else if (moderate.checked) {
-    waterIntake = (+weight * 0.67) + 18.00;
+    waterIntake = (weight * 0.67) + 18.00;
   } else if (very.checked) {
-    waterIntake = (+weight * 0.67) + 24.00;
+    waterIntake = (weight * 0.67) + 24.00;
   } else {
-    waterIntake = (+weight * 0.67) + 30.00;
+    waterIntake = (weight * 0.67) + 30.00;
   }
 
   return weight.toFixed(0);
