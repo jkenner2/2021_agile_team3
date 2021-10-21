@@ -4,7 +4,9 @@ function onStandardClick () {
   var lblWeight = document.getElementById('lblWeight');
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
-
+  var lblwaist = document.getElementById('lblwaist');
+  var lblhip = document.getElementById('lblhip');
+  var lblneck = document.getElementById('lblneck');
 
   // Prevent user from spamming unit conversion radio button
   if (lblWeight.innerHTML == "Weight(lbs):" && lblLargerHeight.innerHTML == "Feet:" && lblSmallerHeight.innerHTML == "Inches:") {
@@ -15,6 +17,9 @@ function onStandardClick () {
   lblWeight.innerHTML = "Weight(lbs):";
   lblLargerHeight.innerHTML = "Feet:";
   lblSmallerHeight.innerHTML = "Inches:";
+  lblwaist.innerHTML = "Waist(in)";
+  lblhip.innerHTML = "Hip(in)";
+  lblneck.innerHTML = "Neck(in)";
 
   // Get refence to each text field (Array returned)
   var input = getRefenceToTextFields();
@@ -23,6 +28,9 @@ function onStandardClick () {
   var weight = parseFloat(input[0].value);
   var largerHeight = parseFloat(input[1].value);
   var smallerHeight = parseFloat(input[2].value);
+  var waist = parseFloat(input[4].value);
+  var hip = parseFloat(input[5].value);
+  var neck = parseFloat(input[6].value);
 
   // Convert values to standard from metric
   input[0].value = (weight * 2.2046226218).toFixed(0);
@@ -33,6 +41,10 @@ function onStandardClick () {
   // Change to calcuclated height values
   input[1].value = metricArray[0];
   input[2].value = metricArray[1];
+  // Change measurements
+  input[4].value = (waist * 0.3937007874).toFixed(0);
+  input[5].value = (hip * 0.3937007874).toFixed(0);
+  input[6].value = (neck * 0.3937007874).toFixed(0);
 }
 
 // Convert the calculator face to use metric units of mesurement
@@ -41,6 +53,9 @@ function onMetricClick () {
   var lblWeight = document.getElementById('lblWeight');
   var lblLargerHeight = document.getElementById('lblLargerHeight');
   var lblSmallerHeight = document.getElementById('lblSmallerHeight');
+  var lblwaist = document.getElementById('lblwaist');
+  var lblhip = document.getElementById('lblhip');
+  var lblneck = document.getElementById('lblneck');
 
   // Prevent user from spamming unit conversion radio button
  if (lblWeight.innerHTML == "Weight(kg):" && lblLargerHeight.innerHTML == "Meters:" && lblSmallerHeight.innerHTML == "Centimeters:") {
@@ -51,6 +66,9 @@ function onMetricClick () {
   lblWeight.innerHTML = "Weight(kg):";
   lblLargerHeight.innerHTML = "Meters:";
   lblSmallerHeight.innerHTML = "Centimeters:";
+  lblwaist.innerHTML = "Waist(cm)";
+  lblhip.innerHTML = "Hip(cm)";
+  lblneck.innerHTML = "Neck(cm)";
 
   // Get values
   var input = getRefenceToTextFields();
@@ -59,6 +77,9 @@ function onMetricClick () {
   var weight = parseFloat(input[0].value);
   var largerHeight = parseFloat(input[1].value);
   var smallerHeight = parseFloat(input[2].value);
+  var waist = parseFloat(input[4].value);
+  var hip = parseFloat(input[5].value);
+  var neck = parseFloat(input[6].value);
 
   // Convert values to metric from standard
   input[0].value = (weight * 0.45359237).toFixed(0);
@@ -68,6 +89,10 @@ function onMetricClick () {
   // Change to calcuclated height values
   input[1].value = metricArray[0];
   input[2].value = metricArray[1];
+  // Change measurements
+  input[4].value = (waist * 2.54).toFixed(0);
+  input[5].value = (hip * 2.54).toFixed(0);
+  input[6].value = (neck * 2.54).toFixed(0);
 }
 
 function convertHeightToMetricFromStandard(feet, inches) {
@@ -196,9 +221,14 @@ function getRefenceToTextFields() {
   var smallerHeight = document.getElementById('smallerHeight');
   // 3: Age
   var age = document.getElementById('age');
-
+  // 4: Waist
+  var waist = document.getElementById('waist');
+  // 5: Hip
+  var hip = document.getElementById('hip');
+  // 6: Neck
+  var neck = document.getElementById('neck');
   // Create array to return
-  var weightHeightAge = [weight, largerHeight, smallerHeight, age];
+  var weightHeightAge = [weight, largerHeight, smallerHeight, age, waist, hip, neck];
 
   // Return array of inputs
   return weightHeightAge;
@@ -225,11 +255,11 @@ function validateData() {
       valueObject.focus();
       // Change to return true (found invald input)
       notValid = true;
-    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12)) {
+    } else if (standard.checked && (input[0].value > 800 || input[1].value > 8 || input[2].value > 12 || input[3].value > 120 || input[4].value > 100 || input[5].value > 120 || input[6].value > 50)) {
       displayAnswer ("Your inputs are too high!");
       valueObject.focus();
       notValid = true;
-    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100)) {
+    } else if (metric.checked && (input[0].value > 370 || input[1].value > 2.5 || input[2].value > 100 || input[3].value > 120 || input[4].value > 254 || input[5].value > 304 || input[6].value > 127)) {
       displayAnswer ("Your inputs are too high!");
       valueObject.focus();
       notValid = true;
