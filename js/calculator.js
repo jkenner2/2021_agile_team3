@@ -367,11 +367,11 @@ function waterIntake() {
   if (sedentary.checked) {
     waterIntake = (+weight * 0.67);
   } else if (light.checked) {
-    waterIntake = (+weight * 0.67) + 12;
+    waterIntake = +(+weight * 0.67) + 12;
   } else if (moderate.checked) {
-    waterIntake = (+weight * 0.67) + 18;
+    waterIntake = +(+weight * 0.67) + 18;
   } else if (very.checked) {
-    waterIntake = (+weight * 0.67) + 24;
+    waterIntake = +(+weight * 0.67) + 24;
   } else {
     waterIntake = (+weight * 0.67) + 30;
   }
