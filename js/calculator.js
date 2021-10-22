@@ -407,7 +407,7 @@ function bodyFat() {
 
     if (standard.checked){
 
-      bodyFatPrecent = 86.010*Math.log10(waist-neck) - 70.041*Math.log10(height) + 36.76;
+      bodyFatPrecent = 86.010*Math.log10(waist-neck) - 70.041*Math.log10((tallerHeight + smallerHeight/12)) + 36.76;
 
     } else {
 
