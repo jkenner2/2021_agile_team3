@@ -429,7 +429,9 @@ function bodyFat() {
 
   } // End of else
 
-  return (bodyFatPrecent * 100).toFixed(0)
+  bodyFatPrecent = 100 - bodyFatPrecent;
+
+  return (bodyFatPrecent).toFixed(0)
 }
 
 // Ensure that answer is displayed only once
