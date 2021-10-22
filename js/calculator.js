@@ -434,6 +434,17 @@ function bodyFat() {
   return (bodyFatPrecent).toFixed(0)
 }
 
+// function to calculate fat weight
+function fatWeight(fat){
+  //Get reference to fields
+  var inputArray = getRefenceToTextFields();
+
+  var weight = parseFloat(inputArray[0].value);
+
+  // calculate
+  return (fat/10)*weight;
+}
+
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
   var answerDiv = document.getElementById("answer");
@@ -491,6 +502,9 @@ function onSubmitClick() {
   // Calculate Body fat
   var fat = bodyFat();
 
+  // calculate fat weight
+  var fatty = fatWeight(fat);
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz. Your body fat precentage is " + fat + "%.");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz. Your body fat precentage is " + fat + "%. This fat weighs " + fatty + "lbs.");
 }
