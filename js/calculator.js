@@ -445,6 +445,37 @@ function fatWeight(fat){
   return (fat/100)*weight;
 }
 
+// Function to calculate ideal body weight
+function calculateIdealBodyWeight(){
+  // Get refernce to text fields
+  var inputArray = getRefenceToTextFields();
+
+  // Seperate out required data
+  var tallerHeight = parseFloat(inputArray[1].value);
+  console.log(tallerHeight);
+  var smallerHeight = parseFloat(inputArray[2].value);
+  console.log(smallerHeight);
+  var male = document.getElementById('male');
+  var standard = document.getElementById('standard');
+  var output;
+  var inchesOverFiveFeet
+
+  if (standard.checked) {
+    inchesOverFiveFeet = (convertFeetToInches(tallerHeight) + smallerHeight) - 60;
+    console.log(inchesOverFiveFeet);
+  } else {
+    inchesOverFiveFeet = ((convertMetersToCentimeters(tallerHeight) + smallerHeight) - 152.4) / 2.54;
+    console.log(inchesOverFiveFeet);
+  }
+
+  if (male.checked) {
+    output = 123.9 + (3.1 * inchesOverFiveFeet);
+  } else {
+    output = 117.1 + (3.0 * inchesOverFiveFeet);
+  }
+  return output.toFixed(0);
+}
+
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
   var answerDiv = document.getElementById("answer");
@@ -505,6 +536,9 @@ function onSubmitClick() {
   // calculate fat weight
   var fatty = (fatWeight(fat)).toFixed(0);
 
+  // Calculate ideal body weight
+  var idealBodyWeight = calculateIdealBodyWeight();
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz. Your body fat precentage is " + fat + "%. This fat weighs " + fatty + "lbs.");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz. Your body fat precentage is " + fat + "%. This fat weighs " + fatty + "lbs. Your ideal body weight is around " + idealBodyWeight + " lbs.");
 }
