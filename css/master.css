@@ -1,0 +1,63 @@
+body {
+  min-width: 500px;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #5c5c5c;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  background-color: #005b80;
+  color: #fff;
+  padding: 15px;
+  border-radius: 40px;
+}
+
+.calculator {
+  max-width: 50%;
+  min-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.units {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.aboutMe {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.measurements {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+#btnSubmit {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #005b80;
+  color: #fff;
+  font-size: 1.5em;
+}
+
+#btnSubmit:hover {
+  background-color: #292929;
+}
+
+.output {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+}
