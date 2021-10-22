@@ -442,7 +442,7 @@ function fatWeight(fat){
   var weight = parseFloat(inputArray[0].value);
 
   // calculate
-  return (fat/10)*weight;
+  return (fat/100)*weight;
 }
 
 // Ensure that answer is displayed only once
