@@ -389,6 +389,49 @@ function targetHeartRate(maxHR) {
   return targetArray;
 }
 
+// Calculate body fat precent
+function bodyFat() {
+  // Get refence to variables
+  var inputArray = getRefenceToTextFields();
+  var tallerHeight = parseFloat(inputArray[1].value);
+  var smallerHeight = parseFloat(inputArray[2].value);
+  var waist = parseFloat(inputArray[4].value);
+  var hip = parseFloat(inputArray[5].value);
+  var neck = parseFloat(inputArray[6].value);
+  var male = document.getElementById('male');
+  var standard = document.getElementById('standard');
+  var bodyFatPrecent = 0.0;
+
+  // Check if male or female and standard or metric
+  if (male.checked){
+
+    if (standard.checked){
+
+      bodyFatPrecent = 86.010*Math.log10(waist-neck) - 70.041*Math.log10(height) + 36.76;
+
+    } else {
+
+      bodyFatPrecent = 495 / (1.0324 - 0.19077*Math.log10(waist-neck) + 0.15456*Math.log10((tallerHeight + smallerHeight/12))) - 450;
+
+    }
+
+  } else {
+
+    if (standard.checked){
+
+      bodyFatPrecent = 163.205*Math.log10(waist + hip - neck) - 97.684*Math.log10(height) - 78.387;
+
+    } else {
+
+      bodyFatPrecent = 495 / (1.29579 - 0.35004*Math.log10(waist + hip - neck) + 0.221*Math.log10(height)) - 450;
+
+    }
+
+  } // End of else
+
+  return (bodyFatPrecent * 100).toFixed(0)
+}
+
 // Ensure that answer is displayed only once
 function displayAnswer (textToDisplay) {
   var answerDiv = document.getElementById("answer");
@@ -443,6 +486,9 @@ function onSubmitClick() {
   // Calculate water intake
   var water = waterIntake();
 
+  // Calculate Body fat
+  var fat = bodyFat();
+
   // Display the calculated information back to the user
-  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz.");
+  displayAnswer ("Your BMI is " + bmi + ", and this shows that you are " + healthy + ". Your BMR is " + bmr + ". Your daily calorie burn is aproximatley " + active + ". Your max heart rate is " + maxHR + ". While working out, try to keep your heart reate between " + targetHR[0] + " and " + targetHR[1] + ". For you to gain weight while working out you need to eat " + gain + " calories. To lose weight you need to eat " + lose + " Calories. The amount of water you also need to drink is " + water + "oz. Your body fat precentage is " + fat + "%.");
 }
